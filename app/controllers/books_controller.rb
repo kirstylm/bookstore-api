@@ -2,11 +2,10 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :update, :destroy]
 
   # GET /books
-  def index
-    @books = Book.all
-
-    render json: @books
-  end
+def index
+  @books = Book.limit(params[:limit])
+  render json: @books, meta: { total: Book.count }
+end
 
   # GET /books/1
   def show
